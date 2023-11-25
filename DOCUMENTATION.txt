@@ -1,5 +1,5 @@
 1. Introduction
-The Kodagu Task Management System is a web application that allows users to sign up, log in, create tasks, and perform various task management activities. It includes authentication using JSON Web Tokens (JWT) and utilizes a MongoDB database for data storage.
+The Task Management System is a web application that allows users to sign up, log in, create tasks, and perform various task management activities. It includes authentication using JSON Web Tokens (JWT) and utilizes a MongoDB database for data storage.
 
 2. Prerequisites
 Node.js
