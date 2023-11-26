@@ -11,7 +11,7 @@ Clone the repository:
 git clone https://github.com/Hellrockerz/TaskManagementApp.git
 
 Install dependencies:
-cd your-repo
+cd <your-repo>
 npm install
 
 4. Project Structure
@@ -40,6 +40,7 @@ Brief explanation of key directories and files:
 - server.js: Main server file.
 
 5. Configuration
+
 MongoDB URI: Edit MONGODB_URI in server.js to match your MongoDB server.
 
 6. Endpoints
@@ -57,9 +58,8 @@ Request
   "password": "password123",
   "cPassword": "password123"
 }
+
 Response (Success)
- 
- 
 {
   "message": "Signed Up Successfully",
   "data": {
@@ -74,29 +74,26 @@ Response (Success)
     "updatedAt": "timestamp"
   }
 }
-Response (User Already Exists)
- 
- 
+
+Response (User Already Exists) 
 {
   "message": "User Already Exists"
 }
+
 Response (Password Mismatch)
- 
- 
 {
   "message": "Password and Confirm Password Must Be The Same."
 }
+
 2. POST /login
-Request
- 
- 
+
+Request 
 {
   "email": "john.doe@example.com",
   "password": "password123"
 }
+
 Response (Success)
- 
- 
 {
   "message": "Logged in successfully",
   "token": "jwt_token",
@@ -109,32 +106,28 @@ Response (Success)
     "updatedAt": "timestamp"
   }
 }
+
 Response (User Not Found)
- 
- 
 {
   "message": "User not found"
 }
+
 Response (Incorrect Password)
- 
- 
 {
   "message": "Incorrect Password"
 }
-3. POST /createTask
-Request
- 
- 
+
+3. POST /createTask    //JWT REQUIRED 
+
+Request 
 {
   "name": "Task Name",
   "description": "Task Description",
   "assignedUser": ["user_id_1", "user_id_2"],
-  "dueDate": "31/12/2023",
-  "completionStatus": "PENDING"
+  "dueDate": "31/12/2000"          //dd/mm/yyyy format
 }
+
 Response (Success)
- 
- 
 {
   "message": "Task created successfully",
   "task": {
@@ -159,24 +152,23 @@ Response (Success)
     "updatedAt": "timestamp"
   }
 }
-Response (Assigned Users Do Not Exist)
- 
- 
+
+Response (Assigned Users Do Not Exist) 
 {
   "message": "Assigned users do not exist",
   "nonExistingUsers": ["user_id_3"]
 }
+
 4. GET /getTaksList
+//JWT REQUIRED
+
 Request
- 
- 
 {
   "page": 1,
   "limit": 10
 }
-Response
- 
- 
+
+Response 
 {
   "message": [
     {
@@ -215,18 +207,18 @@ Response
     "totalPages": 1
   }
 }
+
 5. GET /getTaskById
+//JWT REQUIRED
+
 Request
- 
- 
 {
   "id": "task_id",
-  "page": 1,
-  "limit": 10
+  "page": 1,    //optional               in query param
+  "limit": 10   //optionsl               in query param
 }
-Response
- 
- 
+
+Response 
 {
   "message": [
     {
@@ -250,10 +242,11 @@ Response
     "totalPages": 1
   }
 }
+
 6. PUT /updateTaskById
+//JWT REQUIRED
+
 Request
- 
- 
 {
   "taskId": "task_id",
   "name": "Updated Task Name",
@@ -262,9 +255,8 @@ Request
   "assignedUser": ["user_id_1"],
   "isCompleted": "true"
 }
+
 Response (Task Updated)
- 
- 
 {
   "message": "Task Updated",
   "update": {
@@ -284,37 +276,39 @@ Response (Task Updated)
     "updatedAt": "timestamp"
   }
 }
+
 Response (Specified Task Does Not Exist)
- 
- 
 {
   "message": "Specified Task Does Not Exist"
 }
+
 7. DELETE /deleteTask
+//JWT REQUIRED
+
 Request
- 
- 
 {
   "taskId": "task_id"
 }
+
 Response
- 
- 
 {
   "message": "Task Deleted"
 }
+
 8. GET /statistics
+//JWT REQUIRED
+
 Response
- 
- 
 {
   "message": {
     "Total Number of AssignedUser": 2,
     "Total Number of Tasks": 2,
     "Total Number of Completed Tasks": 1,
-    "Number of completed tasks in the last 7 days": 0
+
+"Number of completed tasks in the last 7 days": 0
   }
 }
+
 7. Authentication
 Middleware: auth.verifyToken
 Token Generation: auth.tokenGenerator
@@ -338,5 +332,9 @@ Mongoose Paginate V2
 Node-cron
 
 12. Contributing:
-I made this it from scratch. It is a basic task management app. The complexity increases with increasing functionalities.
+I made this it from scratch. It is a basic task management app. The complexity increases with increasing functionalities. You may use Nodemailer to generate OTP and send them through email.
+Note that I have used basic Authentication using password and JWT
+YOU MUST ENTER JWT IN AUTHORIZATION HEADER IN POTMAN. IN ORDER TO ACCESS THEM.
+JWT is Provided when you login successfully.
+The exp is 1 day after generated.
 
